@@ -1,0 +1,3 @@
+Emp no : 1000<br>
+Name : Suresh Kumar<br>
+Salary : 8000

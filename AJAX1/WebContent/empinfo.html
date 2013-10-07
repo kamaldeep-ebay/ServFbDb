@@ -1,0 +1,49 @@
+<html>
+<head>
+<script type="text/javascript">
+	var xmlhttp;
+
+	function createXMLHttpRequest() {
+
+		if (window.ActiveXObject) {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		} else if (window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+		}
+
+	}
+
+	function getEmpData(url) {
+
+		createXMLHttpRequest();
+		xmlhttp.onreadystatechange = displayData
+		xmlhttp.open("GET", url, true);
+		xmlhttp.send();
+	}
+
+	function displayData() {
+		
+		if (xmlhttp.readyState == 4){
+     		if(xmlhttp.status == 200) 
+				document.getElementById('empInfo').innerHTML = xmlhttp.responseText;
+			else
+				document.getElementById('empInfo').innerHTML = "Data not available";
+		}
+	}
+</script>
+</head>
+<body>
+	<button onclick="getEmpData('emp1000.txt')">1000</button>
+	<button onclick="getEmpData('emp2000.txt')">2000</button>
+	<button onclick="getEmpData('emp3000.txt')">3000</button>
+	<button onclick="getEmpData('emp4000.txt')">4000</button>
+	<br>
+	<h5>Click the above buttons to get Emp Data</h5>
+	
+	<div id="empInfo"></div>
+
+	<h4>List Ends here</h4>
+
+</body>
+</html>
+
