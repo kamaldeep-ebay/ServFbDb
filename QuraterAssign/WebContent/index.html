@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+
+<script type="text/javascript">
+var xmlhttp;var json1;var json2;var json3; var json4;
+var url;var fburl;var access_token;
+//vars for table
+//var name;var id; var first_name;var last_name;var link;var username;var birthday;var gender; var email;
+function createXMLHttpRequest() {
+
+	if (window.ActiveXObject) {
+		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	} else if (window.XMLHttpRequest) {
+		xmlhttp = new XMLHttpRequest();
+		
+	}
+
+}
+function addwords()
+{
+	
+	var word1 = document.getElementById("word1").value;
+	var word2 = document.getElementById("word2").value;
+	var word3 = document.getElementById("word3").value;
+	var word4 = document.getElementById("word4").value;
+	
+	//url = url+one+"&word2="+two+"&word3="+three+"&word4"+four;
+	//abhihsej.srma
+	
+	access_token = "CAACEdEose0cBAJPY48conZCEwViQTVbAnwzrlTVXtfVCfdb7ZBg9KRl2AleZA9ZBqstXSdZB8irKHdZCdwGG9b37ZBVNlDtTe3V8jA3lpSr9o2lTVaOKzjFbPQMpqbzi5bxk6iWU7fDvbZATL7NLuV58pXGv3Ec5s4f3jZAOeXFwZBvgcY2DhVmVyZAVzVo9oUWK1wZD";
+	
+	 fburl = "https:/graph.facebook.com/"+word1+
+			"?access_token=" +access_token;
+	
+	if((word1 == word2) || (word1 == word3) || (word1 == word4)|| (word2 == word3)
+			|| (word2 == word4)|| (word3 == word4) || (word1.length<3)|| (word2.length<3)
+			|| (word4.length<3)|| (word4.length<3))	
+	{
+		alert("Entered the same name ");
+		document.getElementById('output').innerHTML = "Error";	
+	}	
+	else
+		{
+		
+		createXMLHttpRequest();
+		xmlhttp.onreadystatechange = displayData
+		xmlhttp.open("GET", fburl, true);
+		xmlhttp.send();
+		
+		json1 = xmlhttp.responseText;
+			
+		}
+		
+	
+}
+function callserv()
+{
+	url = "FirstServlet?json1="+json1;
+	
+	xmlhttp.open("GET", url, true);
+	xmlhttp.onreadystatechange = displayData2
+	xmlhttp.send();
+	document.getElementById('output').innerHTML = "entry made in table";
+	
+}
+function displayData() {
+	if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+		{
+			json1 = xmlhttp.responseText;
+		var obj = eval ("(" + json1 + ")");
+
+		alert(obj.id);alert(obj.name);
+		
+		//name = obj.name;id = obj.id; first_name = obj.first_name;
+		//last_name = obj.last_name;link = obj.link;username = obj.username;
+		//birthday = obj.birthday;gender = obj.gender; email = obj.email;
+		
+		}
+		
+	}
+	
+function displayData2() {
+	
+	document.getElementById('finaloutput').innerHTML = xmlhttp.responseText;
+}	
+
+</script>
+
+
+</head>
+<body>
+
+<H5>Please enter the words</H5>
+<br>
+
+
+Word1:
+<input type="text" id ="word1" >
+<br>
+Word2: 
+<input type="text" id ="word2">
+<br>
+Word3:
+<input type="text" id ="word3">
+<br>
+Word4:
+<input type="text" id ="word4">
+<br>
+	<button onclick="addwords()">GETFBDATA</button>
+	<button onclick="callserv()">STORE</button>
+	<div id="output"></div><hr><br>
+	<div id="finaloutput"></div>
+</body>
+</html>
